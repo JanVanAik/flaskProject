@@ -1,4 +1,5 @@
-from flask import Flask, render_template
+
+from flask import Flask, render_template, request, make_response
 
 app = Flask(__name__)
 
@@ -54,6 +55,15 @@ def bags():
                  'desc': 'Chinese version of Adidas'}]
     return render_template('bags.html', products=products, title='Сумки')
 
+@app.get('/form/')
+def get_form():
+    return render_template('form.html')
+
+@app.post('/form/')
+def post_form():
+    name = request.form.get('name')
+    email = request.form.get('email')
+    response
 
 if __name__ == '__main__':
     app.run()
