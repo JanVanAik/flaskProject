@@ -2,11 +2,17 @@ import hashlib
 import random
 
 from models import db, User
+from flask_wtf.csrf import CSRFProtect
+from flask_wtf import FlaskForm
+from forms import RegistrationForm
 from flask import Flask, render_template, request, make_response, redirect, url_for
+app = Flask(__name__)
+
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///mydatabase.db'
 db.init_app(app)
+csrf = CSRFProtect(app)
 
 
 def hex_password(password):
@@ -18,9 +24,25 @@ def hex_password(password):
 def hello_world():  # put application's code here
     return 'Hello World!'
 
+
 @app.cli.command('init-db')
 def init_db():
     db.create_all()
+
+
+@app.route('/register/')
+def register():
+    form = RegistrationForm()
+    if request.method == 'POST' and form.validate():
+        firstname = form.firstname.data
+        lastname = form.lastname.data
+        email = form.email.data
+        password = hex_password(form.password.data)
+        """
+        TODO: send to db
+        """
+    return render_template('register.html', form=form)
+
 
 
 @app.route('/clothes/')
