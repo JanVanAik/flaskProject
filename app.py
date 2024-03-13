@@ -1,7 +1,9 @@
-
+from models import db, User
 from flask import Flask, render_template, request, make_response, redirect, url_for
 
 app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///mydatabase.db'
+db.init_app(app)
 
 
 @app.route('/')
@@ -16,7 +18,7 @@ def clothes():
                  },
                 {'name': "Victoria's Secret",
                  'price': 1000,
-                 'desc': 'Kingerie for women'
+                 'desc': 'Lingerie for women'
                  },
                 {'name': 'Burton',
                  'price': 10,
