@@ -1,3 +1,6 @@
+import hashlib
+import random
+
 from models import db, User
 from flask import Flask, render_template, request, make_response, redirect, url_for
 
@@ -6,9 +9,19 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///mydatabase.db'
 db.init_app(app)
 
 
+def hex_password(password):
+    salt = hashlib.sha1(str(random.random()).encode('utf-8')).hexdigest()[:6]
+    user_password = hashlib.sha1((password + salt).encode('utf-8')).hexdigest()
+    return user_password
+
 @app.route('/')
 def hello_world():  # put application's code here
     return 'Hello World!'
+
+@app.cli.command('init-db')
+def init_db():
+    db.create_all()
+
 
 @app.route('/clothes/')
 def clothes():
