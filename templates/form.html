@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Форма для Пост Запроса</title>
+</head>
+<body>
+<form action="/form" method="post">
+{#    <input type="text" name="name" placeholder="Имя">#}
+{#    <input type="email" name="name" placeholder="Почта">#}
+{#    <input type="submit" value="Отправить">#}
+    <div class="form-row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <input type="text" name="name" placeholder="Имя">
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                    <input type="email" name="email" placeholder="Почта">
+            </div>
+        </div>
+    </div>
+    <div class="form-group mt-4 mb-0">
+        <input class="btn btn-primary btn-block" type="submit" value="Отправить">
+    </div>
+</form>
+
+</body>
+</html>

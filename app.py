@@ -1,4 +1,5 @@
-from flask import Flask, render_template
+
+from flask import Flask, render_template, request, make_response, redirect, url_for
 
 app = Flask(__name__)
 
@@ -53,6 +54,32 @@ def bags():
                  'price': 1000,
                  'desc': 'Chinese version of Adidas'}]
     return render_template('bags.html', products=products, title='Сумки')
+
+@app.get('/form/')
+def get_form():
+    return render_template('form.html')
+
+@app.post('/form/')
+def post_form():
+    name = request.form.get('name')
+    email = request.form.get('email')
+    response = make_response(redirect(url_for('get_greeting')))
+    response.set_cookie('name', name)
+    response.set_cookie('email', email)
+    return response
+
+@app.get('/greeting/')
+def get_greeting():
+    name = request.cookies.get('name')
+    email = request.cookies.get('email')
+    return render_template('greeting.html', name=name, email=email)
+
+@app.post('/greeting/')
+def post_greeting():
+    response = make_response(redirect(url_for('get_form')))
+    response.set_cookie('name', 'name', max_age=0)
+    response.set_cookie('email', 'email', max_age=0)
+    return response
 
 
 if __name__ == '__main__':
