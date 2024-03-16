@@ -6,12 +6,6 @@ import requests
 import aiohttp
 import sys
 
-"""
-
-    Вторым аргументом передается метод - async, threading, multiprocessing
-
-
-"""
 
 
 def gather_info(args):
@@ -88,37 +82,27 @@ functions = {
 }
 
 
-def main(*args):
-    # method = sys.argv[0]
-    # method(gather_info(sys.argv[1:]))
-    method = args[0]
-    # loop = asyncio.get_event_loop()
-    # urls1 = gather_info(list(args[1:]))
-    functions[method](gather_info(list(args[1:])))
-    # loop.run_until_complete(asyncr(urls1))
+def main():
+    method = sys.argv[1]
+    if method == 'asyncr':
+        loop = asyncio.get_event_loop()
+        urls1 = gather_info(list(sys.argv[2:]))
+        loop.run_until_complete(asyncr(urls1))
+    elif method == 'thread' or method == 'multiprocess':
+        functions[method](gather_info(list(sys.argv[2:])))
+    else:
+        print('Вы неверно ввели название метода обработки программы')
 
 
-#
-# main("thread",
-#      "https://sun1-92.userapi.com/impg/lfno5dmntkm5WYFW8RDb5e7zA77eA21J4lTHrg/Hcl_pIdhBnM.jpg?size=1620x2160&quality=96&sign=4e2a3dca23b0d93b1b85d4029448ce8f&type=album",
-#      "https://sun1-18.userapi.com/impg/bM1xTJC9Zcg8YviAyl1lIiiLfihFZqC9TMM7FA/obIUL1lNUpM.jpg?size=1620x2160&quality=95&sign=984baeee09ceb93a2606bc73a994954a&type=album")
 
-# main("multiprocess",
-#      "https://sun1-92.userapi.com/impg/lfno5dmntkm5WYFW8RDb5e7zA77eA21J4lTHrg/Hcl_pIdhBnM.jpg?size=1620x2160&quality=96&sign=4e2a3dca23b0d93b1b85d4029448ce8f&type=album",
-#      "https://sun1-18.userapi.com/impg/bM1xTJC9Zcg8YviAyl1lIiiLfihFZqC9TMM7FA/obIUL1lNUpM.jpg?size=1620x2160&quality=95&sign=984baeee09ceb93a2606bc73a994954a&type=album")
-
-# main("asyncr",
-#      "https://sun1-92.userapi.com/impg/lfno5dmntkm5WYFW8RDb5e7zA77eA21J4lTHrg/Hcl_pIdhBnM.jpg?size=1620x2160&quality=96&sign=4e2a3dca23b0d93b1b85d4029448ce8f&type=album",
-#      "https://sun1-18.userapi.com/impg/bM1xTJC9Zcg8YviAyl1lIiiLfihFZqC9TMM7FA/obIUL1lNUpM.jpg?size=1620x2160&quality=95&sign=984baeee09ceb93a2606bc73a994954a&type=album")
 
 if __name__ == '__main__':
-    main("multiprocess",
-     "https://sun1-92.userapi.com/impg/lfno5dmntkm5WYFW8RDb5e7zA77eA21J4lTHrg/Hcl_pIdhBnM.jpg?size=1620x2160&quality=96&sign=4e2a3dca23b0d93b1b85d4029448ce8f&type=album",
-     "https://sun1-18.userapi.com/impg/bM1xTJC9Zcg8YviAyl1lIiiLfihFZqC9TMM7FA/obIUL1lNUpM.jpg?size=1620x2160&quality=95&sign=984baeee09ceb93a2606bc73a994954a&type=album")
+    main()
 
-#     print('Первым аргументом передайте желаемый метод обработки.\n'
-#           '"asyncr" : Асинхронный подход\n'
-#           '"thread": Мультипотоковый подход\n'
-#           '"multiprocess": Мультипроцессовый подход\n'
-#           'Последующими аргументами передайте url адреса')
-#     main()
+
+
+
+    # test images
+    # main("thread",
+    #      "https://sun1-92.userapi.com/impg/lfno5dmntkm5WYFW8RDb5e7zA77eA21J4lTHrg/Hcl_pIdhBnM.jpg?size=1620x2160&quality=96&sign=4e2a3dca23b0d93b1b85d4029448ce8f&type=album",
+    #      "https://sun1-18.userapi.com/impg/bM1xTJC9Zcg8YviAyl1lIiiLfihFZqC9TMM7FA/obIUL1lNUpM.jpg?size=1620x2160&quality=95&sign=984baeee09ceb93a2606bc73a994954a&type=album")
